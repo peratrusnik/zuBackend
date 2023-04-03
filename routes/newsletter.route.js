@@ -6,6 +6,7 @@ const newsLetterRoute = express.Router()
 
 newsLetterRoute.post("/addToList", async(req, res) => {
     const reqBody = req.body
+    
     NewsletterModel.findOne(reqBody, async(error, result) => {
         if (error) {
             const errMsg = "Error on subscribe newsletter, " + error
@@ -27,7 +28,7 @@ newsLetterRoute.post("/addToList", async(req, res) => {
                 <p>You are successfully subscribed for newletter!</p>
                 <h2>Thanks for subscribe!</h2>
                 <p>If you like to remove your mail from subscribe list click on next link:</p>
-                <a href="http://localhost:3000/unsubscribe/${mailSaved._id.toString()}">Remove from subscribe list</a>
+                <a href="${req.protocol}/${req.hostname}/unsubscribe/${mailSaved._id.toString()}">Remove from subscribe list</a>
                 `
             )
                 .then(() => res.send('Successfully subscribe to newsletter'))

@@ -143,4 +143,71 @@ UserRouter.post('/init-payment', verifyToken, async (req, res) => {
 
 })
 
+
+UserRouter.put('/wishlist', (req, res) => {
+	const { userId, product } = req.body;
+
+	UserModel.updateOne(
+		{ _id: userId },
+		{ $push: { wishList: product } },
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				UserModel.findOne({ _id: userId })
+					.then((user) => res.send(user))
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		}
+	);
+});
+// remove from wishlist
+
+UserRouter.post('/wishlist', (req, res) => {
+	const { userId, product } = req.body;
+	UserModel.updateOne(
+		{ _id: userId },
+		{ $pull: { wishList: product } },
+		(err, result) => {
+			if (err) {
+				console.log(err);
+				return res.status(415).send(err);
+			} else {
+				UserModel.findOne({ _id: userId })
+					.then((user) => {
+						res.send(user);
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			}
+		}
+	);
+});
+
+UserRouter.get('/wishlist/:userId', (req, res) => {
+	const userId = req.params.userId;
+
+	UserModel.findOne(
+		{ _id: userId },
+		{ wishList: 1, _id: 0 },
+		(err, wishlist) => {
+			if (err) {
+				return console.log(err);
+			}
+			ProductModel.find(
+				{ _id: { $in: wishlist.wishList } },
+				(err, result) => {
+					if (err) {
+						return console.log(err);
+					}
+					res.send(result);
+				}
+			);
+		}
+	);
+});
+
 module.exports = UserRouter

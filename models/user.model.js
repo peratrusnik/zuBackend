@@ -29,7 +29,10 @@
      isActive: {
          type: Boolean,
          default: false
-     }
+     },
+     wishList: {
+		type: Array,
+	},
  })
 
  const UserModel = Mongoose.model('users', userSchema)
