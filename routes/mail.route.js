@@ -5,9 +5,10 @@ const {htmlContactForm} = require("../template/mail.template");
 
 mailRoute.post("/sendContact", (req, res) => {
     const origin = req.get('origin')
+    console.log(origin);
     const {email, subject, message} = req.body
 
-    let mailHtml = htmlContactForm(message, origin)
+    let mailHtml = htmlContactForm({message, origin})
 
     sendMail(email, subject, mailHtml)
         .then((result) => {

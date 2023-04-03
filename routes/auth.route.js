@@ -41,10 +41,11 @@ authRoute.post(
     '/register',
     userValidation.registerValidation,
     async (req, res) => {
+        const origin = req.get('origin')
         try {
             const newUser = await UserModel.create(req.body)
             newUser.save()
-            const activationMailHtml = mailTemplates.htmlActivation(`http://localhost:3000/activate-account/${newUser?._id}`)
+            const activationMailHtml = mailTemplates.htmlActivation(`${origin}/activate-account/${newUser?._id}`)
 
             sendMail(
                 newUser?.email,

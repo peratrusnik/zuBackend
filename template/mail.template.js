@@ -1,9 +1,9 @@
-const htmlContactForm = (message, origin) => {
+const htmlContactForm = ({ message, origin} ) => {
 
     return `<h2 style="font-size: 20px; color: darkred;">Message from ZureaShop</h2>
     <p style="line-height: 1.7; color: blue">${message}</p>
-    <a href="${origin}" target="_blank">Go to WebSite</a>
-    <img src="cid:logo@nodemailer.com" style="height: 50px" alt="">`
+    <a href="${origin}" target="_blank" style="fontSize: 20px">Go to WebSite</a><br><br>
+    <img src="cid:logo@nodemailer.com" style="height: 30px" alt="">`
 }
 
 const htmlActivation = (activationLink) => {
