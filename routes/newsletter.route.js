@@ -4,7 +4,9 @@ const sendMail = require("../services/mail.service")
 const newsLetterRoute = express.Router()
 
 
-newsLetterRoute.post("/addToList", async(req, res) => {
+newsLetterRoute.post("/addToList", async (req, res) => {
+    const origin = req.get('origin')
+    // console.log(origin);
     const reqBody = req.body
     
     NewsletterModel.findOne(reqBody, async(error, result) => {
@@ -28,7 +30,7 @@ newsLetterRoute.post("/addToList", async(req, res) => {
                 <p>You are successfully subscribed for newletter!</p>
                 <h2>Thanks for subscribe!</h2>
                 <p>If you like to remove your mail from subscribe list click on next link:</p>
-                <a href="${req.protocol}/${req.hostname}/unsubscribe/${mailSaved._id.toString()}">Remove from subscribe list</a>
+                <a href="${origin}/unsubscribe/${mailSaved._id.toString()}">Remove from subscribe list</a>
                 `
             )
                 .then(() => res.send('Successfully subscribe to newsletter'))

@@ -4,9 +4,10 @@ const sendMail = require("../services/mail.service")
 const {htmlContactForm} = require("../template/mail.template");
 
 mailRoute.post("/sendContact", (req, res) => {
+    const origin = req.get('origin')
     const {email, subject, message} = req.body
 
-    let mailHtml = htmlContactForm(message)
+    let mailHtml = htmlContactForm(message, origin)
 
     sendMail(email, subject, mailHtml)
         .then((result) => {
