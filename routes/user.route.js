@@ -5,7 +5,7 @@ const UserModel = require('../models/user.model')
 const verifyToken = require("../validation/tokenValidation")
 const stripe = require('stripe')
 // secret key
-const sk = 'sk_test_51LE86WICBi42q51Nzzn6JysljOWRoBSpAn2SpItLAANNUndhbBoOC5MtgS9PTeu63eE61NaYddhg2UGkXO4QZafc00ouJ8pP3w'
+const sk = 'sk_test_51MtBuXEdr6WugQ8XR8KDmWlPqkmSCdZ9K1geWnbfcKE0CO81yu1UeQqVp4yzEgAnhWHcx5Csk79Af4AadtAKdjsu00xP7i64xa'
 const stripeObj = stripe(sk)
 
 UserRouter.get("/products/:userId", verifyToken, (req, res) => {
